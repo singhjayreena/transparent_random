@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const subdivisionSizes = new Array(N).fill(part_size);
 
         // Deterministically calculate an offset to distribute the remainder
-        const offset = (A + B + C) * 10000;
+        const offset = (A + B + C) * 98765;
         const start_index = offset % N;
 
         // Distribute the remainder values across the subdivisions
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < N; i++) {
             // 3. Generate a unique, deterministic seed for this output
             // Using different large, prime-like multipliers and the index 'i' ensures variety
-            const seed = (A * (100003 + i * 13) + B * (200009 + i * 17) + C * (300007 + i * 19));
+            const seed = (A * (1005703 + i * 173) + B * (285209 + i * 157) + C * (309647 + i * 1879));
             
             // 4. Map the seed to the current subdivided part
             const sizeOfThisPart = subdivisionSizes[i];
