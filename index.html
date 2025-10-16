@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deterministic Value Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Deterministic Value Generator</h1>
+        <p>This tool generates a predictable set of values based on your inputs. The same inputs will always yield the same results.</p>
+        
+        <div class="input-section">
+            <h2>A. Input Seeds</h2>
+            <div class="input-group">
+                <label for="valueA">Value A:</label>
+                <input type="number" id="valueA" placeholder="e.g., 123" value="123">
+            </div>
+            <div class="input-group">
+                <label for="valueB">Value B:</label>
+                <input type="number" id="valueB" placeholder="e.g., 456" value="456">
+            </div>
+            <div class="input-group">
+                <label for="valueC">Value C:</label>
+                <input type="number" id="valueC" placeholder="e.g., 789" value="789">
+            </div>
+        </div>
+
+        <div class="input-section">
+            <h2>B. Generation Parameters</h2>
+            <div class="input-group">
+                <label for="maxRange">Max Range (1 to...):</label>
+                <input type="number" id="maxRange" placeholder="e.g., 1000" value="1000">
+            </div>
+            <div class="input-group">
+                <label for="numOutputs">Number of Outputs (N):</label>
+                <input type="number" id="numOutputs" placeholder="e.g., 10" value="10">
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="generateBtn">Generate</button>
+            <button id="downloadBtn" disabled>Download Results</button>
+        </div>
+
+        <div class="output-section">
+            <h2>C. Output</h2>
+            <textarea id="outputArea" readonly placeholder="Generated values will appear here..."></textarea>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
