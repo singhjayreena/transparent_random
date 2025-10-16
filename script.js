@@ -42,7 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Layer 4: Cross-Variable Influence
         // Shift one input value by an amount determined by the lower bits of another.
         // (valC & 15n) gives a value from 0 to 15 based on C's last 4 bits.
-        const crossInfluence = valB >> (valC & 15n);
+        // Clamp the shift amount to prevent excessive shifts on large BigInt values
+        const shiftAmount = Number(valC & 15n); // Convert to number for safe shifting
+        const crossInfluence = valB >> BigInt(shiftAmount);
         combined = combined + crossInfluence;
 
         // Layer 5: Final Hashing with Large Primes
@@ -79,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const offset = (A + B + C) * 98765n; 
             const start_index = offset % N;
 
-            for (let i = 0n; i < remainder; i++) {
+            for (let i = 0n; i < remainder; i += 1n) {
                 const indexToIncrement = (start_index + i) % N;
                 subdivisionSizes[Number(indexToIncrement)] += 1n;
             }
@@ -87,7 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const finalOutputs = [];
             let currentStart = 1n;
 
-            for (let i = 0n; i < N; i++) {
+            // Fixed: Use consistent BigInt loop variable with i += 1n
+            for (let i = 0n; i < N; i += 1n) {
                 // --- MODIFIED PART ---
                 // Call the new secure seed generation function
                 const seed = createObfuscatedSeed(A, B, C, i);
@@ -101,6 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 finalOutputs.push(finalValue);
                 currentStart += sizeOfThisPart;
+            }
+
+            // Handle edge case: N = 1 (single winner)
+            if (finalOutputs.length === 0) {
+                outputArea.value = "Error: No valid outputs generated. Please check your inputs.";
+                downloadBtn.disabled = true;
+                return;
             }
 
             outputArea.value = finalOutputs.join('\n');
@@ -128,4 +138,3 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(a.href);
     }
 });
-
